@@ -1,25 +1,30 @@
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
 import './App.css';
+import useAxios from './hooks/useAxios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+    // useAxios 훅 초기화. baseURL을 포함한 config 객체를 전달합니다.
+    const {response, error, loading, fetchData} = useAxios({
+        baseURL: "https://jsonplaceholder.typicode.com/posts"
+    });
+
+    useEffect(() => {
+        // 컴포넌트가 마운트될 때 데이터를 가져옵니다.
+        fetchData({url: 'https://jsonplaceholder.typicode.com/posts', method: 'GET'});
+    }, [fetchData]);
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                {loading && <p>Loading...</p>}
+                {error && <p>Error: {error}</p>}
+                {response && (
+                    <div>
+                        <p>Data fetched successfully:</p>
+                        <pre>{JSON.stringify(response, null, 2)}</pre>
+                    </div>
+                )}
+            </header>
+        </div>
+    );
 }
-
-export default App;
