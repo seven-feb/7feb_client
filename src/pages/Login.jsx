@@ -1,8 +1,15 @@
 import React from 'react';
 import styled from "styled-components";
 import GlobalStyle from "../styles/GlobalStyle";
+import { useNavigate } from 'react-router-dom';
 
 export default function Login(props) {
+    const movePage = useNavigate();
+
+    const handleClick = () => {
+        movePage("/auth/signin");
+    };
+
     return (
         <>
         <GlobalStyle />
@@ -14,7 +21,8 @@ export default function Login(props) {
             </Inputbox>
 
             <div style={{fontSize: '40px', margin: '20px'}}>로그인</div>
-            <div style={{fontSize: '20px', margin: '50px'}}>회원가입 비밀번호찾기</div>
+            <Button onClick={handleClick}>회원가입</Button>
+            <Button>비밀번호 찾기</Button>
         </LoginPage>
         </>
     );
@@ -48,4 +56,13 @@ const Inputbox = styled.div`
     input:last-child {
         margin-bottom: 0; /* Password input에는 아래쪽 마진을 없애줌 */
     }
-`;
+`
+
+const Button = styled.button`
+    font-size: 20px;
+    margin: 20px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+`
+;
