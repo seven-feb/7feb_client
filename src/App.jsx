@@ -29,7 +29,7 @@ export default function App() {
                 )}
             </header> */}
             <Routes>
-                <Route path="/Login" element={<Login />}/>
+                <Route path="/auth/Login" element={<Login />}/>
             </Routes>
         </div>
         </BrowserRouter>
